@@ -1,25 +1,46 @@
-import logo from './logo.svg';
+import React, {Component} from 'react';
+import {FaAlignRight} from 'react-icons/fa';
 import './App.css';
 
-function App() {
+export default class App extends Component {
+  state = {
+      toggle:false
+  }
+  Toggle = () => {
+      this.setState({toggle:!this.state.toggle})
+  }
+  render() {
+    const li = [
+      {
+          link: "/",
+          text:"Home"
+      },
+      {
+          link: "/about/",
+          text:"Sign up"
+      },
+      {
+          link: "/contact/",
+          text:"Sign in"
+      }
+    ];
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+        <div className="navBar">
+              <button onClick={this.Toggle}>
+                  <FaAlignRight />
+              </button>
+              <ul className={this.state.toggle ? "links show-nav" : "links"}>
+                  {
+                      li.map((objLink, i) => {
+                          return ( <li key={i}><a href={objLink.link}>{objLink.text}</a></li> )
+                      })
+                  }
+              </ul>
+        </div>
+    </>
   );
+  }
 }
 
-export default App;
+
